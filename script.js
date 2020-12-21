@@ -44,9 +44,9 @@ if (isMobile.matches) {
 // Score
 let playerScore = 0;
 let computerScore = 0;
-const winningScore = 7;
-// let isGameOver = true;
-// let isNewGame = true;
+const winningScore = 5;
+let isGameOver = true;
+let isNewGame = true;
 
 // Render Everything on Canvas
 function renderCanvas() {
@@ -90,9 +90,6 @@ function createCanvas() {
   body.appendChild(canvas);
   renderCanvas();
 }
-
-// Remove this
-createCanvas();
 
 // Reset Ball to Center
 function ballReset() {
@@ -177,30 +174,30 @@ function computerAI() {
 
 function showGameOverEl(winner) {
   // Hide Canvas
-
-  // // Container
-  // gameOverEl.textContent = '';
-  // gameOverEl.classList.add('game-over-container');
-  // // Title
-  // const title = document.createElement('h1');
-  // title.textContent = `${winner} Wins!`;
-  // // Button
-  // const playAgainBtn = document.createElement('button');
-  // playAgainBtn.setAttribute('onclick', 'startGame()');
-  // playAgainBtn.textContent = 'Play Again';
-  // // Append
-
+  canvas.style.display = 'none';
+  // Container
+  gameOverEl.textContent = '';
+  gameOverEl.classList.add('game-over-container');
+  // Title
+  const title = document.createElement('h1');
+  title.textContent = `${winner} win!`;
+  // Button
+  const playAgainBtn = document.createElement('button');
+  playAgainBtn.setAttribute('onclick', 'startGame()');
+  playAgainBtn.textContent = 'Play Again';
+  // Append
+  body.append(title, playAgainBtn);
 
 }
 
 // Check If One Player Has Winning Score, If They Do, End Game
 function gameOver() {
-  // if (playerScore === winningScore || computerScore === winningScore) {
-  //   isGameOver = ;
-  //   // Set Winner
-  //   let winner = ;
-  //   showGameOverEl(winner);
-  // }
+  if (playerScore === winningScore || computerScore === winningScore) {
+    isGameOver = true;
+    // Set Winner
+    let winner = playerScore === winningScore ? 'You' : 'Computer\'s';
+    showGameOverEl(winner);
+  }
 }
 
 // Called Every Frame
@@ -209,7 +206,10 @@ function animate() {
   ballMove();
   ballBoundaries();
   computerAI();
-  window.requestAnimationFrame(animate);
+  gameOver();
+  if (!isGameOver) {
+    window.requestAnimationFrame(animate);
+  }
 }
 
 // Start Game, Reset Everything
@@ -218,7 +218,7 @@ function startGame() {
 
 
   // }
-  // isGameOver = ;
+  isGameOver = false;
   // isNewGame = ;
   playerScore = 0;
   computerScore = 0;
