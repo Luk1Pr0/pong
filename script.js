@@ -186,8 +186,8 @@ function showGameOverEl(winner) {
   playAgainBtn.setAttribute('onclick', 'startGame()');
   playAgainBtn.textContent = 'Play Again';
   // Append
-  body.append(title, playAgainBtn);
-
+  gameOverEl.append(title, playAgainBtn);
+  body.append(gameOverEl);
 }
 
 // Check If One Player Has Winning Score, If They Do, End Game
@@ -214,12 +214,12 @@ function animate() {
 
 // Start Game, Reset Everything
 function startGame() {
-  // if (isGameOver && !isNewGame) {
-
-
-  // }
+  if (isGameOver && !isNewGame) {
+    body.removeChild(gameOverEl);
+    canvas.style.display = 'block';
+  }
   isGameOver = false;
-  // isNewGame = ;
+  isNewGame = false;
   playerScore = 0;
   computerScore = 0;
   ballReset();
